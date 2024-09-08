@@ -19,6 +19,7 @@ esac
 set +f					# Enable pathname expansion.
 arch=arch
 src=src
+demo_src_dir="${src}/org.module.info.demo"
 tester_src_dir="${src}/org.module.info.tester"
 common_bin_dir="bin/modules"
 test -x "${src}/" || exit 101		# Check the current working directory.
@@ -40,6 +41,13 @@ then
 		--module-version=0.0.1 \
 		--module-path "${tester_src_dir}/classes" \
 		-C "${common_bin_dir}/org.module.info.tester" .
+	test -d "${common_bin_dir}/org.module.info.demo/META-INF" || \
+		mkdir -p "${common_bin_dir}/org.module.info.demo/META-INF"
+	cp -p -t "${common_bin_dir}/org.module.info.demo/META-INF/" ../LICENSE
+	jar --verbose --create --file="${arch}/demo.jar" \
+		--module-version=0.0.1 \
+		--module-path "${demo_src_dir}/classes" \
+		-C "${common_bin_dir}/org.module.info.demo" .
 else
 	javac -Xdiags:verbose -Xlint -d "${common_bin_dir}" \
 		--module-source-path "${src}/*/classes" \
@@ -58,4 +66,11 @@ then
 		--add-modules org.module.info.tester \
 		--module-source-path src/\*/classes \
 		--module org.module.info.tester
+	javadoc -tag 'implSpec:a:Implementation Requirements:' \
+		-d docs/demo_docs/ $LINK_TO_JSR \
+		-verbose -source 21 -protected \
+		--expand-requires transitive --show-module-contents api \
+		--add-modules org.module.info.demo,org.module.info.tester \
+		--module-source-path src/\*/classes \
+		--module org.module.info.demo,org.module.info.tester
 fi
