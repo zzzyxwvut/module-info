@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import org.tester.internal.Tester;
+
 /** Derived instances of this type admit access to testing facilities. */
 public abstract class Templet
 {
@@ -46,7 +48,12 @@ public abstract class Templet
 	@SafeVarargs
 	public final Result testEach(Predicate<? super Templet>... methods)
 	{
-		throw new UnsupportedOperationException("TODO");
+		/* Make a friendly manoeuvre for testEach in another package. */
+		return Tester.testEach(Success::new,
+				falses -> (passed, failed) ->
+					new Failure(falses, passed, failed),
+				this,
+				methods);
 	}
 
 	/**
