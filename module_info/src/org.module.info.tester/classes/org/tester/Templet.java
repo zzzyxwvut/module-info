@@ -1,10 +1,8 @@
 package org.tester;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Predicate;
+import module java.base;
 
-import org.tester.internal.Tester;
+import org.tester.internal.*;
 
 /** Derived instances of this type admit access to testing facilities. */
 public abstract class Templet

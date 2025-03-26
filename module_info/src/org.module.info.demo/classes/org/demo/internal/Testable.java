@@ -1,9 +1,8 @@
 package org.demo.internal;
 
-import java.util.List;
+import module java.base;
 
-import org.tester.Templet.Result;
-import org.tester.Templet;
+import module org.module.info.tester;
 
 /**
  * A service whose provider implementations are expected to collect a list of
@@ -12,5 +11,5 @@ import org.tester.Templet;
 public interface Testable
 {
 	/** {@return a list of collected test results} */
-	List<Result> collectResults();
+	List<Templet.Result> collectResults();
 }

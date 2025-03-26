@@ -1,16 +1,10 @@
 package org.tester.internal;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import module java.base;
 
-import org.tester.Templet.Result;
-import org.tester.Templet;
+import module org.module.info.tester;
+
+import org.tester.Templet.*;
 
 /** This class arranges for the invocation of test methods. */
 public final class Tester

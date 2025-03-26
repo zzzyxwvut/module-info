@@ -1,23 +1,11 @@
 package org.demo.tests;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.function.LongBinaryOperator;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.LongStream;
+import module java.base;
 
-import org.demo.ArithmeticOperation.Divide;
-import org.demo.ArithmeticOperation.Minus;
-import org.demo.ArithmeticOperation.Plus;
-import org.demo.ArithmeticOperation.Times;
-import org.demo.ArithmeticOperation;
-import org.demo.internal.Testable;
+import module org.module.info.demo;
+import module org.module.info.tester;
 
-import org.tester.Templet.Result;
-import org.tester.Templet;
+import org.demo.ArithmeticOperation.*;
 
 /** @hidden */
 public final class ArithmeticOperationTests
@@ -51,7 +39,7 @@ public final class ArithmeticOperationTests
 		}
 
 		@Override
-		public List<Result> collectResults()
+		public List<Templet.Result> collectResults()
 		{
 			return Arrays.asList(new LongRangeTemplet(() ->
 					LongStream.rangeClosed(1L, 8L))

@@ -1,28 +1,11 @@
 package org.demo.tests;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.ServiceLoader;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import module java.base;
+import module java.logging;
+import module jdk.jfr;
 
-import java.util.logging.Logger;
-import java.util.logging.LogManager;
-
-import jdk.jfr.consumer.EventStream;
-import jdk.jfr.consumer.RecordedStackTrace;
-import jdk.jfr.consumer.RecordingStream;
-
-import org.tester.Templet.FalseAssertions;
-import org.tester.Templet.Result;
-
-import org.demo.internal.Testable;
+import module org.module.info.demo;
+import module org.module.info.tester;
 
 final class Tester
 {
@@ -47,11 +30,11 @@ final class Tester
 	}
 
 	@SuppressWarnings("fallthrough")
-	private static Function<Logger, Consumer<Result>> reporter()
+	private static Function<Logger, Consumer<Templet.Result>> reporter()
 	{
 		return logger -> result -> {
 			switch (result) {
-			case FalseAssertions assertions:
+			case Templet.FalseAssertions assertions:
 				logger.info(assertions.falses()
 					.values()
 					.stream()

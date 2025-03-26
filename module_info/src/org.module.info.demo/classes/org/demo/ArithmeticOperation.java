@@ -1,7 +1,6 @@
 package org.demo;
 
-import java.util.function.Function;
-import java.util.function.LongBinaryOperator;
+import module java.base;
 
 /** Basic arithmetic operations. */
 public sealed interface ArithmeticOperation

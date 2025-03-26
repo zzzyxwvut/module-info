@@ -1,4 +1,4 @@
-import java.util.ServiceLoader;
+import module java.base;
 
 /**
  * Defines demo related support.
