@@ -36,6 +36,7 @@ echo >&2 "COMPILING..."
 if test $((${agenda} & 4)) -ne 0
 then
 	javac -Xdiags:verbose -Xlint -d "${common_bin_dir}" \
+		--release 24 --enable-preview \
 		--module-source-path "${src}/*/classes" \
 		$(find src/*/classes/ -type f -name \*.java)
 	echo >&2 "PACKAGING..."
@@ -58,6 +59,7 @@ then
 elif test $((${agenda} & 2)) -ne 0
 then
 	javac -Xdiags:verbose -Xlint -d "${common_bin_dir}" \
+		--release 24 --enable-preview \
 		--module-source-path "${src}/*/classes" \
 		$(find src/*/classes/ -type f -name \*.java)
 	test ! -e "${demo_src_dir}/tests/module-info.peekaboo" ||
@@ -68,6 +70,7 @@ then
 			"${demo_src_dir}/tests/module-info.peekaboo" || :' \
 							EXIT HUP INT QUIT TERM
 	javac -Xdiags:verbose -Xlint -d "${tests_bin_dir}" \
+		--release 24 --enable-preview \
 		--module-path "${common_bin_dir}" \
 		--module-source-path "${src}/*/tests" \
 		--patch-module "org.module.info.demo=${demo_src_dir}/classes" \
@@ -76,12 +79,14 @@ then
 		"${demo_src_dir}/tests/org/demo/tests/logging.properties"
 	echo >&2 "TESTING..."
 	java -Xdiag -XX:StartFlightRecording:class-loading=true \
+		--enable-preview \
 		--add-modules org.module.info.tester \
 		--module-path "${tests_bin_dir}:${common_bin_dir}" \
 		--module org.module.info.demo/org.demo.tests.Tester
-####	java --describe-module org.module.info.demo --module-path bin/tests/modules
+####	java --enable-preview --describe-module org.module.info.demo --module-path bin/tests/modules
 else
 	javac -Xdiags:verbose -Xlint -d "${common_bin_dir}" \
+		--release 24 --enable-preview \
 		--module-source-path "${src}/*/classes" \
 		$(find src/*/classes/ -type f -name \*.java)
 fi
@@ -90,17 +95,19 @@ if false
 then
 	## The -link target is RELATIVE to the rightmost directory of -d, e.g.
 	## for a repository located at /tmp/repos/module-info.git, it can be
-	## LINK_TO_JSR='-link ../../../../../../../tmp/docs/JSR-000396/java-se-21-fr-spec/api'.
+	## LINK_TO_JSR='-link ../../../../../../../tmp/docs/JSR-000399/java-se-24-fr-spec/api'.
 	javadoc -tag 'implSpec:a:Implementation Requirements:' \
 		-d docs/tester_docs/ $LINK_TO_JSR \
-		-verbose -source 21 -protected \
+		-verbose -protected \
+		--release 24 --enable-preview \
 		--expand-requires transitive --show-module-contents api \
 		--add-modules org.module.info.tester \
 		--module-source-path src/\*/classes \
 		--module org.module.info.tester
 	javadoc -tag 'implSpec:a:Implementation Requirements:' \
 		-d docs/demo_docs/ $LINK_TO_JSR \
-		-verbose -source 21 -protected \
+		-verbose -protected \
+		--release 24 --enable-preview \
 		--expand-requires transitive --show-module-contents api \
 		--add-modules org.module.info.demo,org.module.info.tester \
 		--module-source-path src/\*/classes \
